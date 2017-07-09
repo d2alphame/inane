@@ -19,9 +19,9 @@ public class Inane {
         }
 
         char[] source = new char[(int) new File(args[0]).length()];     // Use the length of the file to setup a fixed length character array
-        byte[] output = new byte[65536];        // This shall be our output byte array
+        byte[] output = new byte[65536];        // This shall be our output byte array. Its 64KB
         int outputPointer = 0;     // Pointer to the output byte to operate on. Initially points to the first byte
-        FileOutputStream fout = null;       // A File Output Stream so we can write the byte array to 
+        FileOutputStream fout = null;       // A File Output Stream so we can write the byte array to a file
 
         // Initialize all bytes in the output byte array to 0
         for (int i = 0; i < 65536; i++) {
@@ -38,20 +38,20 @@ public class Inane {
             for (char c : source) {
                 switch (c) {
                     case '+':
-                        output[outputPointer] |= 1;         // If we detected '+' then set the least significant bit
+                        output[outputPointer] |= 1;         // If we detected '+' then set the least significant bit of current output byte
                         break;
                     case '-':
-                        output[outputPointer] <<= 1;        // If we detected '-' then shift left by 1
+                        output[outputPointer] <<= 1;        // If we detected '-' then shift current output byte left by 1 bit
                         break;
                     case '>':
-                        outputPointer += 1;                 // If we detected '>' then point to the next byte in the output array
+                        outputPointer += 1;                 // If we detected '>' then point to the next byte in the output
                         break;
                     default:
-                        break;
+                        break;                              // Effectively just ignore every other character
                 }
             }
 
-            // Write the byte array to the output file
+            // Write the output byte array to a file
             fout.write(output);
         }
         catch(Exception e) {
