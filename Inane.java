@@ -32,7 +32,8 @@ public class Inane {
         try {
             FileReader reader = new FileReader(args[0]);        // Create a file reader given the file to read from
             reader.read(source);                                // Read all characters from the file into the character array
-            fout = new FileOutputStream("b.bin");               // Pass a file name to the FileOutputStream
+			reader.close();										// And close the file immediately
+			fout = new FileOutputStream("b.bin");               // Pass a file name to the FileOutputStream
 
             // Loop through all the characters in the source character array
             for (char c : source) {
